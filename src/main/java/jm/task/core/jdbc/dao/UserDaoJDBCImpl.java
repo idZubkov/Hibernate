@@ -29,8 +29,15 @@ public class UserDaoJDBCImpl implements UserDao {
                     "PRIMARY KEY (id))";
             statement.executeUpdate(query);
             statement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                util.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -44,6 +51,12 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                util.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -56,11 +69,16 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
-            System.out.println("User с именем – " + name + " добавлен в базу данных");
             userList.add(new User(name, lastName, age));
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                util.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -74,11 +92,22 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                util.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public List<User> getAllUsers() {
         util.getInstance();
+        try {
+            util.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return userList;
     }
 
@@ -93,6 +122,12 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                util.getConnection().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
