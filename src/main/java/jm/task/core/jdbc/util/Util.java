@@ -4,36 +4,29 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Util {
-    // реализуйте настройку соеденения с БД
-    private static Util instance;
-
     private static final String HOST = "jdbc:mysql://localhost:3306/my_db_jm?serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    private Connection connection;
+    private static Connection connection = null;
 
-    public Connection getConnection() {
-        return connection;
+    private Util() {
     }
 
-    public Util getInstance() {
-        if (instance == null) {
-            synchronized (Util.class) {
-                if (instance == null)
-                    instance = new Util();
-            }
-        }
+    public static Connection getConnection() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+            if (connection == null) {
+                synchronized (Util.class) {
+                    if (connection == null) {
+                        Class.forName(DRIVER);
+                        connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return instance;
-    }
-
-    public Util() {
-
+        return connection;
     }
 }
