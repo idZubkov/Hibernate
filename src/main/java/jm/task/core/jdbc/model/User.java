@@ -9,7 +9,6 @@ public class User {
     @Id
     private Long id;
 
-
     @Column
     private String name;
 
@@ -20,7 +19,6 @@ public class User {
     private Byte age;
 
     public User() {
-
     }
 
     public User(String name, String lastName, Byte age) {
