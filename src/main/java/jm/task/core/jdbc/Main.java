@@ -1,10 +1,11 @@
 package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.service.UserServiceImpl;
+import org.hibernate.HibernateException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws HibernateException {
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("Alexander", "Pushkin", (byte) 37);
