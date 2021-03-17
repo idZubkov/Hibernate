@@ -38,7 +38,6 @@ public class UserDaoHibernateImpl implements UserDao {
             throw new HibernateException("HibernateException in 'createUsersTable' method");
         } finally {
             session.close();
-            sessionFactory.getCurrentSession().close();
         }
     }
 
@@ -55,7 +54,6 @@ public class UserDaoHibernateImpl implements UserDao {
             throw new HibernateException("HibernateException in 'dropUsersTable' method");
         } finally {
             session.close();
-            sessionFactory.getCurrentSession().close();
         }
     }
 
@@ -75,7 +73,6 @@ public class UserDaoHibernateImpl implements UserDao {
             throw new HibernateException("HibernateException in 'saveUser' method");
         } finally {
             session.close();
-            sessionFactory.getCurrentSession().close();
         }
     }
 
@@ -92,7 +89,6 @@ public class UserDaoHibernateImpl implements UserDao {
             throw new HibernateException("HibernateException in 'removeUserById' method");
         } finally {
             session.close();
-            sessionFactory.getCurrentSession().close();
         }
     }
 
@@ -106,7 +102,7 @@ public class UserDaoHibernateImpl implements UserDao {
         try {
             session = sessionFactory.openSession();
             transaction = sessionFactory.getCurrentSession().beginTransaction();
-            Query query = sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM my_db_jm.users");
+            Query query = sessionFactory.getCurrentSession().createSQLQuery("TRUNCATE TABLE my_db_jm.users");
             query.executeUpdate();
             userList.clear();
             transaction.commit();
@@ -115,7 +111,6 @@ public class UserDaoHibernateImpl implements UserDao {
             throw new HibernateException("HibernateException in 'cleanUsersTable' method");
         } finally {
             session.close();
-            sessionFactory.getCurrentSession().close();
         }
     }
 }
